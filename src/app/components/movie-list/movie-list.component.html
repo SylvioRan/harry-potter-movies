@@ -1,17 +1,29 @@
-<div
-  class="d-flex flex-column align-items-center"
-  *ngIf="allMovies$ | async as allMovies"
->
-  <div class="d-flex flex-row" *ngFor="let movie of allMovies">
-    <p>•</p>
-    <div class="d-flex flex-column">
-      <h3>{{ movie.title }}</h3>
-      <div class="d-flex flex-row gap-2">
-        <p>Release date:</p>
-        <p>Budget:</p>
-        <p>Duration:</p>
+<div class="d-flex flex-column mw-100 gap-2">
+  <app-filter-bar 
+  (titleFilter)="updateTitleFilter($event)"
+  (releaseYearFilter)="updateReleaseYearFilter($event)"
+  />
+  <!-- Affichage de la liste des films -->
+  <div
+    class="d-flex flex-column align-items-center"
+    *ngIf="filteredMovies$ | async as filteredMovies"
+  >
+    <div
+      class="d-flex flex-row align-items w-100"
+      *ngFor="let movie of filteredMovies"
+    >
+      <p class="text-dark">•</p>
+      <div class="d-flex flex-column">
+        <h3 class="text-dark">{{ movie.title }}</h3>
+        <div class="d-flex flex-row gap-2">
+          <p class="text-dark">Release date: {{ movie.release_date }}</p>
+          <p class="text-dark">Budget: ${{ movie.budget }} million</p>
+          <p class="text-dark">Duration: {{ movie.duration | duration }}</p>
+        </div>
       </div>
+      <button class="ms-auto btn btn-light" (click)="showDetails(movie.id)">
+        Details
+      </button>
     </div>
-    <button>Details</button>
   </div>
 </div>

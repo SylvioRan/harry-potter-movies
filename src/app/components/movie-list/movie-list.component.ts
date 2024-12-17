@@ -1,18 +1,71 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MoviesService } from '../../services/movies.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
 import { Movie } from '../../models/movie.interface';
 import { CommonModule } from '@angular/common';
+import { DurationPipe } from '../../pipes/duration.pipe';
+import { FilterBarComponent } from '../filter-bar/filter-bar.component';
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DurationPipe, FilterBarComponent],
   templateUrl: './movie-list.component.html',
-  styleUrl: './movie-list.component.css'
+  styleUrl: './movie-list.component.css',
 })
-export class MovieListComponent {
+export class MovieListComponent implements OnInit {
   private readonly _movieService = inject(MoviesService);
 
+  // Déclaration des filtres dans des behavior subjects, afin de prendre facilement les nouvelles valeurs
+  private titleFilter$: BehaviorSubject<string> = new BehaviorSubject<string>(
+    ''
+  );
+  private releaseYearFilter$: BehaviorSubject<string> =
+    new BehaviorSubject<string>('');
+
+  // Récupération de tous les films
   protected allMovies$: Observable<Movie[]> = this._movieService.getMovies();
+  // Permet d'afficher les films de façon filtré
+  protected filteredMovies$!: Observable<Movie[]>;
+
+  public ngOnInit(): void {
+    // On utilise combine latest, afin d'avoir constament les dernières valeurs de chaque observable
+    // C'est surtout utile pour les deux filtres
+    this.filteredMovies$ = combineLatest([
+      this.allMovies$,
+      this.titleFilter$,
+      this.releaseYearFilter$,
+    ]).pipe(
+      map(([movies, titleFilter, yearFilter]) => {
+        return movies.filter((movie) => {
+          // Récupération de l'année du film
+          const movieYearAsDate: Date = new Date(movie.release_date);
+          const movieYear: string = movieYearAsDate.getFullYear().toString();
+
+          // On regarde si le titre contient au moins un passage avec la donnée dans le filtre.
+          // Il est important de tout lowerCase ou toUpperCase pour mieux filtrer sur les mots
+          const onTitleFilter: boolean = movie.title
+            .toLowerCase()
+            .includes(titleFilter.toLocaleLowerCase());
+          // Il est important de mettre le filtre à true, si aucune année n'est renseignée
+          const onYearFilter: boolean = yearFilter
+            ? movieYear === yearFilter
+            : true;
+
+          return onTitleFilter && onYearFilter;
+        });
+      })
+    );
+  }
+
+  /** Mise à jour des filtres */
+  protected updateTitleFilter(title: string): void {
+    this.titleFilter$.next(title);
+  }
+
+  protected updateReleaseYearFilter(yearFilter: string): void {
+    this.releaseYearFilter$.next(yearFilter);
+  }
+
+  protected showDetails(movieId: string) {}
 }
