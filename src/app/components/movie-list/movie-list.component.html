@@ -12,13 +12,13 @@
       class="d-flex flex-row align-items w-100"
       *ngFor="let movie of filteredMovies"
     >
-      <p class="text-dark">•</p>
+      <p>•</p>
       <div class="d-flex flex-column">
-        <h3 class="text-dark">{{ movie.title }}</h3>
+        <h3>{{ movie.title }}</h3>
         <div class="d-flex flex-row gap-2">
-          <p class="text-dark">Release date: {{ movie.release_date }}</p>
-          <p class="text-dark">Budget: ${{ movie.budget }} million</p>
-          <p class="text-dark">Duration: {{ movie.duration | duration }}</p>
+          <p>Release date: {{ movie.release_date }}</p>
+          <p>Budget: ${{ movie.budget }} million</p>
+          <p>Duration: {{ movie.duration | duration }}</p>
         </div>
       </div>
       <button class="ms-auto btn btn-light" (click)="showDetails(movie.id)">

@@ -5,6 +5,7 @@ import { Movie } from '../../models/movie.interface';
 import { CommonModule } from '@angular/common';
 import { DurationPipe } from '../../pipes/duration.pipe';
 import { FilterBarComponent } from '../filter-bar/filter-bar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
@@ -14,7 +15,8 @@ import { FilterBarComponent } from '../filter-bar/filter-bar.component';
   styleUrl: './movie-list.component.css',
 })
 export class MovieListComponent implements OnInit {
-  private readonly _movieService = inject(MoviesService);
+  private readonly _router: Router = inject(Router);
+  private readonly _movieService: MoviesService = inject(MoviesService);
 
   // Déclaration des filtres dans des behavior subjects, afin de prendre facilement les nouvelles valeurs
   private titleFilter$: BehaviorSubject<string> = new BehaviorSubject<string>(
@@ -67,5 +69,7 @@ export class MovieListComponent implements OnInit {
     this.releaseYearFilter$.next(yearFilter);
   }
 
-  protected showDetails(movieId: string) {}
+  protected showDetails(movieId: string) {
+    this._router.navigate(['/movies', movieId]);
+  }
 }

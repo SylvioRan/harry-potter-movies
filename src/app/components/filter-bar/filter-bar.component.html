@@ -1,13 +1,13 @@
-<div class="d-flex flex-column bg-light p-3">
-    <h3 class="text-dark">Filters</h3>
+<div class="d-flex flex-column bg-light mt-2 p-3">
+    <h3>Filters</h3>
     <div class="row">
         <div class="col">
-            <label for="title-filter" class="text-dark">Title</label>
-            <input type="text" id="title-filter" class="bg-white" (input)="onTitleChange($event)">
+            <label for="title-filter">Title</label>
+            <input type="text" id="title-filter" (input)="onTitleChange($event)">
         </div>
         <div class="col">
-            <label for="release-year-filter" class="text-dark">Release year</label>
-            <input type="text" id="release-year-filter" class="bg-white" (input)="onReleaseYearChange($event)">
+            <label for="release-year-filter">Release year</label>
+            <input type="number" id="release-year-filter" (input)="onReleaseYearChange($event)">
         </div>
     </div>
 </div>

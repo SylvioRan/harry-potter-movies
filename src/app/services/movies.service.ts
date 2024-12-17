@@ -9,9 +9,13 @@ import { Movie } from '../models/movie.interface';
 export class MoviesService {
   private _httpClient: HttpClient = inject(HttpClient);
 
-  private readonly _movieApiUrl: string = '/movies';
+  private readonly _movieBaseUrl: string = '/movies';
 
   public getMovies(): Observable<Movie[]> {
-    return this._httpClient.get<Movie[]>(this._movieApiUrl);
+    return this._httpClient.get<Movie[]>(this._movieBaseUrl);
+  }
+
+  public getMovieById(movieId: string): Observable<Movie> {
+    return this._httpClient.get<Movie>(`${this._movieBaseUrl}/${movieId}`);
   }
 }

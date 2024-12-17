@@ -1,1 +1,44 @@
-<p>movie-detail works!</p>
+<div class="d-flex flex-column gap-2">
+    <button type="button" class="d-flex align-self-start align-items-center btn btn-light" (click)="backToMovieList()">
+        <img src="assets/images/home.png" width="50" height="50"/>
+        Back
+    </button>
+    <div *ngIf="movieDetails$ | async as movieDetails" class="d-flex flex-column align-items-center gap-2">
+        <h2 class="d-flex align-self-start">{{ movieDetails.title }}</h2>
+        <div class="container">
+            <div class="row">
+                <img [src]="movieDetails.poster" alt="Image du film" class="col-3"/>
+                <p class="col">
+                    <b>Summary: </b> {{ movieDetails.summary }}
+                </p>
+            </div>
+        </div>
+
+        <h3>Details</h3>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th scope="row">Box office</th>
+                    <td>${{ movieDetails.box_office }} million</td>
+                </tr>
+                <tr>
+                    <th scope="row">Budget</th>
+                    <td>${{ movieDetails.budget }} million</td>
+                </tr>
+                <tr>
+                    <th scope="row">Duration</th>
+                    <td>{{ movieDetails.duration | duration }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Producers</th>
+                    <td>{{ producersAsString(movieDetails) }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Cinematographers</th>
+                    <td>{{ movieDetails.cinematographers }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
