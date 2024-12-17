@@ -69,7 +69,11 @@ export class MovieListComponent implements OnInit {
     this.releaseYearFilter$.next(yearFilter);
   }
 
-  protected showDetails(movieId: string) {
+  /**
+   * Permet d'afficher les détails sur le film
+   * @param movieId l'id du film
+   */
+  protected showDetails(movieId: string): void {
     this._router.navigate(['/movies', movieId]);
   }
 }

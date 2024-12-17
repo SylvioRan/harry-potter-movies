@@ -42,6 +42,9 @@ export class MovieDetailComponent {
     return movie.producers.join(', ');
   }
 
+  /**
+   * Permet de retourner vers la liste des films
+   */
   protected backToMovieList(): void {
     this._router.navigate(['/movies']);
   }

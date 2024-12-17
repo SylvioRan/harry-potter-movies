@@ -9,9 +9,9 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class FilterBarComponent {
   @Output()
-  public titleFilter = new EventEmitter<string>();
+  public titleFilter: EventEmitter<string> = new EventEmitter<string>();
   @Output()
-  public releaseYearFilter = new EventEmitter<string>();
+  public releaseYearFilter: EventEmitter<string> = new EventEmitter<string>();
 
   protected onTitleChange(event: Event): void {
     // Récupération de la valeur saisie
