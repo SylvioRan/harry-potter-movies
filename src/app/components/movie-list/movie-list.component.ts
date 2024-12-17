@@ -51,7 +51,7 @@ export class MovieListComponent implements OnInit {
             .includes(titleFilter.toLocaleLowerCase());
           // Il est important de mettre le filtre à true, si aucune année n'est renseignée
           const onYearFilter: boolean = yearFilter
-            ? movieYear === yearFilter
+            ? movieYear.includes(yearFilter)
             : true;
 
           return onTitleFilter && onYearFilter;
