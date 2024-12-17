@@ -15,7 +15,8 @@ export class FilterBarComponent {
 
   protected onTitleChange(event: Event): void {
     // Récupération de la valeur saisie
-    const value = (event.target as HTMLInputElement).value;
+    const value: string = (event.target as HTMLInputElement).value;
+    
     this.titleFilter.emit(value);
   }
 
