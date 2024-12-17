@@ -6,11 +6,12 @@ import { CommonModule } from '@angular/common';
 import { DurationPipe } from '../../pipes/duration.pipe';
 import { FilterBarComponent } from '../filter-bar/filter-bar.component';
 import { Router } from '@angular/router';
+import { MillionDollarsPipe } from "../../pipes/million-dollars.pipe";
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
-  imports: [CommonModule, DurationPipe, FilterBarComponent],
+  imports: [CommonModule, DurationPipe, FilterBarComponent, MillionDollarsPipe],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.css',
 })

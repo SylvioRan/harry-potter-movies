@@ -20,11 +20,11 @@
             <tbody>
                 <tr>
                     <th scope="row">Box office</th>
-                    <td>${{ movieDetails.box_office }} million</td>
+                    <td>{{ movieDetails.box_office ?? '' | millionDollars }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Budget</th>
-                    <td>${{ movieDetails.budget }} million</td>
+                    <td>{{ movieDetails.budget | millionDollars }}</td>
                 </tr>
                 <tr>
                     <th scope="row">Duration</th>

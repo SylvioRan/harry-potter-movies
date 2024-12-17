@@ -17,7 +17,7 @@
         <h3>{{ movie.title }}</h3>
         <div class="d-flex flex-row gap-2">
           <p>Release date: {{ movie.release_date }}</p>
-          <p>Budget: ${{ movie.budget }} million</p>
+          <p>Budget: {{ movie.budget | millionDollars }}</p>
           <p>Duration: {{ movie.duration | duration }}</p>
         </div>
       </div>

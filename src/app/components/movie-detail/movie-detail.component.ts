@@ -1,15 +1,17 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MoviesService } from '../../services/movies.service';
 import { Observable, of, switchMap } from 'rxjs';
 import { Movie } from '../../models/movie.interface';
 import { CommonModule } from '@angular/common';
 import { DurationPipe } from '../../pipes/duration.pipe';
+import { ParamMap } from '@angular/router';
+import { MillionDollarsPipe } from "../../pipes/million-dollars.pipe";
 
 @Component({
   selector: 'app-movie-detail',
   standalone: true,
-  imports: [CommonModule, DurationPipe],
+  imports: [CommonModule, DurationPipe, MillionDollarsPipe],
   templateUrl: './movie-detail.component.html',
   styleUrl: './movie-detail.component.css',
 })
@@ -22,7 +24,7 @@ export class MovieDetailComponent {
     this._activatedRoute.paramMap.pipe(
       // En récupérant l'id dans la route de l'url, on veut prendre l'objet Movie qui est en lien.
       // Grâce à switchMap, on peut réobtenir un observable derriere, en se basant sur l'observable précédent
-      switchMap((params) => {
+      switchMap((params: ParamMap) => {
         const movieId: string | null = params.get('movieId'); // Récupération de l'id depuis l'URL
 
         if (movieId) {
