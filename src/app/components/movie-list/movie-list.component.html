@@ -1,1 +1,17 @@
-<p>movie-list works!</p>
+<div
+  class="d-flex flex-column align-items-center"
+  *ngIf="allMovies$ | async as allMovies"
+>
+  <div class="d-flex flex-row" *ngFor="let movie of allMovies">
+    <p>•</p>
+    <div class="d-flex flex-column">
+      <h3>{{ movie.title }}</h3>
+      <div class="d-flex flex-row gap-2">
+        <p>Release date:</p>
+        <p>Budget:</p>
+        <p>Duration:</p>
+      </div>
+    </div>
+    <button>Details</button>
+  </div>
+</div>
